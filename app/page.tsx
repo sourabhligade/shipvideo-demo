@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
+  const router = useRouter();
 
   return (
     <main style={{ padding: 40, fontFamily: "sans-serif" }}>
@@ -20,13 +22,49 @@ export default function Home() {
           borderRadius: "8px",
           cursor: "pointer",
           marginTop: "20px",
+          marginRight: "12px",
           transition: "background-color 0.2s",
         }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#005bb5")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#0070f3")}
         onClick={() => setShowPopup(true)}
       >
-        xlixkxkxk Me
+        Click Me
+      </button>
+
+      <button
+        id="billing-button"
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#10b981",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "20px",
+          marginRight: "12px",
+        }}
+        onClick={() => router.push("/billing")}
+      >
+        Billing
+      </button>
+
+      <button
+        id="dashboard-button"
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#6366f1",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "20px",
+        }}
+        onClick={() => router.push("/dashboard")}
+      >
+        Dashboard
       </button>
 
       {showPopup && (
