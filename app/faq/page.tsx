@@ -29,8 +29,18 @@ export default function FAQ() {
   ];
 
   return (
-    <main style={{ padding: 40, fontFamily: "sans-serif", maxWidth: 800, margin: "0 auto" }}>
-      <h1 style={{ marginBottom: "30px", color: "#333" }}>Frequently Asked Questions</h1>
+    <main
+      style={{
+        padding: 40,
+        fontFamily: "sans-serif",
+        maxWidth: 800,
+        margin: "0 auto",
+        minHeight: "100vh",
+        backgroundColor: "#000000",
+        color: "#f5f5f5",
+      }}
+    >
+      <h1 style={{ marginBottom: "30px", color: "#ffffff" }}>Frequently Asked Questions</h1>
 
       <div style={{ marginBottom: "40px" }}>
         {faqs.map((faq, index) => (
@@ -39,22 +49,22 @@ export default function FAQ() {
             style={{
               marginBottom: "20px",
               padding: "20px",
-              backgroundColor: "#f9f9f9",
+              backgroundColor: "#111111",
               borderRadius: "8px",
-              border: "1px solid #e0e0e0",
+              border: "1px solid #333333",
             }}
           >
             <h3
               style={{
                 marginTop: 0,
                 marginBottom: "10px",
-                color: "#0070f3",
+                color: "#76b3ff",
                 fontSize: "18px",
               }}
             >
               {faq.question}
             </h3>
-            <p style={{ margin: 0, color: "#666", lineHeight: "1.6" }}>
+            <p style={{ margin: 0, color: "#cccccc", lineHeight: "1.6" }}>
               {faq.answer}
             </p>
           </div>
@@ -65,15 +75,15 @@ export default function FAQ() {
         style={{
           padding: "10px 20px",
           fontSize: "16px",
-          backgroundColor: "#0070f3",
-          color: "white",
+          backgroundColor: "#ffffff",
+          color: "#000000",
           border: "none",
           borderRadius: "8px",
           cursor: "pointer",
           transition: "background-color 0.2s",
         }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#005bb5")}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#0070f3")}
+        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#e5e5e5")}
+        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
         onClick={() => router.push("/")}
       >
         Back to Home
