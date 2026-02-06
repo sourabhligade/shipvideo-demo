@@ -1,12 +1,32 @@
+"use client";
+
+import { useState } from "react";
+
 type PlanProps = {
   name: string;
   price: string;
   description: string;
   features: string[];
   highlighted?: boolean;
+  showDowngrade?: boolean;
+  onDowngrade?: () => void;
 };
 
 export default function BillingPage() {
+  const [showDowngradeModal, setShowDowngradeModal] = useState(false);
+
+  const handleDowngradeClick = () => {
+    setShowDowngradeModal(true);
+  };
+
+  const handleConfirmDowngrade = () => {
+    setShowDowngradeModal(false);
+  };
+
+  const handleCancelDowngrade = () => {
+    setShowDowngradeModal(false);
+  };
+
   return (
     <main className="billing">
       <style>{`
@@ -107,6 +127,113 @@ export default function BillingPage() {
           color: #e5e7eb;
         }
 
+        .plan-actions {
+          margin-top: 20px;
+        }
+
+        .plan-btn {
+          padding: 10px 20px;
+          font-size: 14px;
+          font-weight: 500;
+          border-radius: 8px;
+          border: 1px solid #374151;
+          background: #1f2937;
+          color: #e5e7eb;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .plan-btn:hover {
+          background: #374151;
+        }
+
+        .plan-btn.downgrade {
+          border-color: #f87171;
+          color: #fca5a5;
+        }
+
+        .plan-btn.downgrade:hover {
+          background: #7f1d1d;
+        }
+
+        .modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 50;
+          padding: 24px;
+        }
+
+        .modal {
+          background: #111827;
+          border-radius: 16px;
+          max-width: 480px;
+          width: 100%;
+          padding: 32px;
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+          border: 1px solid #374151;
+        }
+
+        .modal h3 {
+          font-size: 20px;
+          margin-bottom: 12px;
+          color: #f9fafb;
+        }
+
+        .modal p {
+          color: #9ca3af;
+          margin-bottom: 20px;
+          line-height: 1.6;
+        }
+
+        .modal ul {
+          padding-left: 20px;
+          margin-bottom: 24px;
+          color: #fca5a5;
+        }
+
+        .modal li {
+          margin-bottom: 8px;
+        }
+
+        .modal-actions {
+          display: flex;
+          gap: 12px;
+          justify-content: flex-end;
+        }
+
+        .modal-btn {
+          padding: 10px 20px;
+          font-size: 14px;
+          font-weight: 500;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .modal-btn.cancel {
+          border: 1px solid #374151;
+          background: #1f2937;
+          color: #e5e7eb;
+        }
+
+        .modal-btn.cancel:hover {
+          background: #374151;
+        }
+
+        .modal-btn.confirm {
+          border: none;
+          background: #dc2626;
+          color: #ffffff;
+        }
+
+        .modal-btn.confirm:hover {
+          background: #b91c1c;
+        }
+
         @media (max-width: 900px) {
           .plans {
             grid-template-columns: 1fr;
@@ -156,6 +283,8 @@ export default function BillingPage() {
             "Priority CI execution",
           ]}
           highlighted
+          showDowngrade
+          onDowngrade={handleDowngradeClick}
         />
 
         <Plan
@@ -171,6 +300,41 @@ export default function BillingPage() {
           ]}
         />
       </section>
+
+      {showDowngradeModal && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="downgrade-modal-title">
+          <div className="modal">
+            <h3 id="downgrade-modal-title">Confirm downgrade to Starter</h3>
+            <p>
+              Downgrading from Team to Starter will remove access to the following features:
+            </p>
+            <ul>
+              <li>Up to 100 demo videos / month (reduced to 20)</li>
+              <li>Custom Playwright flows</li>
+              <li>AI-generated summaries</li>
+              <li>Release email embeds</li>
+              <li>Priority CI execution</li>
+            </ul>
+            <p>
+              Are you sure you want to proceed with the downgrade?
+            </p>
+            <div className="modal-actions">
+              <button
+                className="modal-btn cancel"
+                onClick={handleCancelDowngrade}
+              >
+                Cancel
+              </button>
+              <button
+                className="modal-btn confirm"
+                onClick={handleConfirmDowngrade}
+              >
+                Yes, downgrade
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="billing-section">
         <h2>Usage & overages</h2>
@@ -192,7 +356,7 @@ export default function BillingPage() {
   );
 }
 
-function Plan({ name, price, description, features, highlighted }: PlanProps) {
+function Plan({ name, price, description, features, highlighted, showDowngrade, onDowngrade }: PlanProps) {
   return (
     <div className={`plan ${highlighted ? "highlighted" : ""}`}>
       <h3>{name}</h3>
@@ -203,6 +367,16 @@ function Plan({ name, price, description, features, highlighted }: PlanProps) {
           <li key={f}>{f}</li>
         ))}
       </ul>
+      {showDowngrade && onDowngrade && (
+        <div className="plan-actions">
+          <button
+            className="plan-btn downgrade"
+            onClick={onDowngrade}
+          >
+            Downgrade
+          </button>
+        </div>
+      )}
     </div>
   );
 }
