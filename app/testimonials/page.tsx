@@ -39,15 +39,16 @@ export default function TestimonialsPage() {
         padding: 40,
         fontFamily: "sans-serif",
         minHeight: "100vh",
-        backgroundColor: "#fafafa",
+        backgroundColor: "#020617", // dark slate
+        color: "#e5e7eb",
       }}
     >
       <button
         style={{
           padding: "8px 16px",
           fontSize: "14px",
-          backgroundColor: "#e5e7eb",
-          color: "#374151",
+          backgroundColor: "#111827",
+          color: "#e5e7eb",
           border: "none",
           borderRadius: "6px",
           cursor: "pointer",
@@ -58,8 +59,8 @@ export default function TestimonialsPage() {
         ← Back
       </button>
 
-      <h1 style={{ marginBottom: 8, color: "#111" }}>Testimonials</h1>
-      <p style={{ color: "#6b7280", marginBottom: 32 }}>
+      <h1 style={{ marginBottom: 8, color: "#f9fafb" }}>Testimonials</h1>
+      <p style={{ color: "#9ca3af", marginBottom: 32 }}>
         What our customers say about ShipVideo.
       </p>
 
@@ -76,27 +77,27 @@ export default function TestimonialsPage() {
             key={i}
             style={{
               padding: 24,
-              backgroundColor: "white",
+              backgroundColor: "#020617",
               borderRadius: 12,
-              border: "1px solid #e5e7eb",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
+              border: "1px solid #1f2937",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
             }}
           >
             <p
               style={{
                 margin: "0 0 16px",
                 fontSize: 16,
-                color: "#374151",
+                color: "#e5e7eb",
                 lineHeight: 1.6,
                 fontStyle: "italic",
               }}
             >
               "{t.quote}"
             </p>
-            <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#111" }}>
+            <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#f9fafb" }}>
               {t.author}
             </p>
-            <p style={{ margin: "4px 0 0", fontSize: 14, color: "#6b7280" }}>
+            <p style={{ margin: "4px 0 0", fontSize: 14, color: "#9ca3af" }}>
               {t.role}
             </p>
           </div>
