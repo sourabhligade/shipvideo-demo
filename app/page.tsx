@@ -79,10 +79,28 @@ export default function Home() {
           borderRadius: "8px",
           cursor: "pointer",
           marginTop: "20px",
+          marginRight: "12px",
         }}
         onClick={() => router.push("/faq")}
       >
         FAQ
+      </button>
+
+      <button
+        id="features-button"
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#8b5cf6",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "20px",
+        }}
+        onClick={() => router.push("/features")}
+      >
+        Features
       </button>
 
       {showPopup && (
