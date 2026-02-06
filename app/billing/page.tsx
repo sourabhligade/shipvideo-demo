@@ -15,8 +15,8 @@ export default function BillingPage() {
           margin: 0 auto;
           padding: 48px;
           font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-          color: #0f172a;
-          background: radial-gradient(circle at top left, #ecfeff 0, #ffffff 45%);
+          color: #e5e7eb;
+          background: radial-gradient(circle at top left, #020617 0, #020617 40%, #020617 100%);
         }
 
         .billing-header {
@@ -26,11 +26,12 @@ export default function BillingPage() {
         .billing-header h1 {
           font-size: 36px;
           margin-bottom: 8px;
+          color: #f9fafb;
         }
 
         .billing-header p {
           font-size: 16px;
-          color: #64748b;
+          color: #9ca3af;
           max-width: 640px;
         }
 
@@ -41,7 +42,7 @@ export default function BillingPage() {
         .billing-section h2 {
           font-size: 22px;
           margin-bottom: 12px;
-          color: #020617;
+          color: #e5e7eb;
         }
 
         .billing-section ul {
@@ -50,7 +51,7 @@ export default function BillingPage() {
 
         .billing-section li {
           margin-bottom: 8px;
-          color: #475569;
+          color: #9ca3af;
         }
 
         .plans {
@@ -63,37 +64,37 @@ export default function BillingPage() {
         .plan {
           border-radius: 16px;
           padding: 24px;
-          background: linear-gradient(135deg, #f8fafc, #ffffff);
-          border: 1px solid #e2e8f0;
-          box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+          background: linear-gradient(135deg, #020617, #0b1120);
+          border: 1px solid #1f2937;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
         }
 
         .plan.highlighted {
-          border: 1px solid #0f172a;
-          box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
-          background: radial-gradient(circle at top left, #e0f2fe, #ffffff);
+          border: 1px solid #f97316;
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.9);
+          background: radial-gradient(circle at top left, #111827, #020617);
           transform: translateY(-4px);
         }
 
         .plan h3 {
           font-size: 20px;
           margin-bottom: 8px;
-          color: #020617;
+          color: #f9fafb;
         }
 
         .plan-price {
           font-size: 24px;
           font-weight: 600;
           margin-bottom: 8px;
-          color: #0369a1;
+          color: #38bdf8;
         }
 
         .plan.highlighted .plan-price {
-          color: #0f172a;
+          color: #fbbf24;
         }
 
         .plan-description {
-          color: #64748b;
+          color: #9ca3af;
           margin-bottom: 16px;
         }
 
@@ -103,7 +104,7 @@ export default function BillingPage() {
 
         .plan li {
           margin-bottom: 8px;
-          color: #475569;
+          color: #e5e7eb;
         }
 
         @media (max-width: 900px) {
