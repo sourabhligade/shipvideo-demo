@@ -12,19 +12,25 @@ type PlanProps = {
   onDowngrade?: () => void;
 };
 
+type DowngradeTarget = "team" | "starter" | null;
+
 export default function BillingPage() {
   const [showDowngradeModal, setShowDowngradeModal] = useState(false);
+  const [downgradeFrom, setDowngradeFrom] = useState<DowngradeTarget>(null);
 
-  const handleDowngradeClick = () => {
+  const handleDowngradeClick = (from: DowngradeTarget) => {
+    setDowngradeFrom(from);
     setShowDowngradeModal(true);
   };
 
   const handleConfirmDowngrade = () => {
     setShowDowngradeModal(false);
+    setDowngradeFrom(null);
   };
 
   const handleCancelDowngrade = () => {
     setShowDowngradeModal(false);
+    setDowngradeFrom(null);
   };
 
   return (
@@ -269,6 +275,8 @@ export default function BillingPage() {
             "Basic narration",
             "Changelog embeds",
           ]}
+          showDowngrade
+          onDowngrade={() => handleDowngradeClick("starter")}
         />
 
         <Plan
@@ -284,7 +292,7 @@ export default function BillingPage() {
           ]}
           highlighted
           showDowngrade
-          onDowngrade={handleDowngradeClick}
+          onDowngrade={() => handleDowngradeClick("team")}
         />
 
         <Plan
@@ -301,20 +309,40 @@ export default function BillingPage() {
         />
       </section>
 
-      {showDowngradeModal && (
+      {showDowngradeModal && downgradeFrom && (
         <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="downgrade-modal-title">
           <div className="modal">
-            <h3 id="downgrade-modal-title">Confirm downgrade to Starter</h3>
-            <p>
-              Downgrading from Team to Starter will remove access to the following features:
-            </p>
-            <ul>
-              <li>Up to 100 demo videos / month (reduced to 20)</li>
-              <li>Custom Playwright flows</li>
-              <li>AI-generated summaries</li>
-              <li>Release email embeds</li>
-              <li>Priority CI execution</li>
-            </ul>
+            <h3 id="downgrade-modal-title">
+              {downgradeFrom === "team"
+                ? "Confirm downgrade to Starter"
+                : "Confirm downgrade to Free"}
+            </h3>
+            {downgradeFrom === "team" ? (
+              <>
+                <p>
+                  Downgrading from Team to Starter will remove access to the following features:
+                </p>
+                <ul>
+                  <li>Up to 100 demo videos / month (reduced to 20)</li>
+                  <li>Custom Playwright flows</li>
+                  <li>AI-generated summaries</li>
+                  <li>Release email embeds</li>
+                  <li>Priority CI execution</li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <p>
+                  Downgrading from Starter to Free will remove access to the following features:
+                </p>
+                <ul>
+                  <li>Up to 20 demo videos / month</li>
+                  <li>PR video comments</li>
+                  <li>Basic narration</li>
+                  <li>Changelog embeds</li>
+                </ul>
+              </>
+            )}
             <p>
               Are you sure you want to proceed with the downgrade?
             </p>
