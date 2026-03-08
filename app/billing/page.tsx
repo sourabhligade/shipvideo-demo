@@ -10,6 +10,8 @@ type PlanProps = {
   highlighted?: boolean;
   showDowngrade?: boolean;
   onDowngrade?: () => void;
+  showCustomBilling?: boolean;
+  onCustomBilling?: () => void;
 };
 
 type DowngradeTarget = "team" | "starter" | null;
@@ -17,6 +19,13 @@ type DowngradeTarget = "team" | "starter" | null;
 export default function BillingPage() {
   const [showDowngradeModal, setShowDowngradeModal] = useState(false);
   const [downgradeFrom, setDowngradeFrom] = useState<DowngradeTarget>(null);
+  const [showCustomBillingModal, setShowCustomBillingModal] = useState(false);
+  const [customBillingForm, setCustomBillingForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
 
   const handleDowngradeClick = (from: DowngradeTarget) => {
     setDowngradeFrom(from);
@@ -31,6 +40,12 @@ export default function BillingPage() {
   const handleCancelDowngrade = () => {
     setShowDowngradeModal(false);
     setDowngradeFrom(null);
+  };
+
+  const handleCustomBillingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowCustomBillingModal(false);
+    setCustomBillingForm({ name: "", email: "", company: "", message: "" });
   };
 
   return (
@@ -135,6 +150,9 @@ export default function BillingPage() {
 
         .plan-actions {
           margin-top: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
         }
 
         .plan-btn {
@@ -240,6 +258,54 @@ export default function BillingPage() {
           background: #b91c1c;
         }
 
+        .plan-btn.primary {
+          border-color: #f97316;
+          background: #ea580c;
+          color: #fff;
+        }
+
+        .plan-btn.primary:hover {
+          background: #c2410c;
+        }
+
+        .modal .form-group {
+          margin-bottom: 16px;
+        }
+
+        .modal label {
+          display: block;
+          font-size: 14px;
+          color: #9ca3af;
+          margin-bottom: 6px;
+        }
+
+        .modal input,
+        .modal textarea {
+          width: 100%;
+          padding: 10px 12px;
+          border-radius: 8px;
+          border: 1px solid #374151;
+          background: #1f2937;
+          color: #e5e7eb;
+          font-size: 14px;
+          box-sizing: border-box;
+        }
+
+        .modal textarea {
+          min-height: 80px;
+          resize: vertical;
+        }
+
+        .modal-btn.primary {
+          border: none;
+          background: #ea580c;
+          color: #fff;
+        }
+
+        .modal-btn.primary:hover {
+          background: #c2410c;
+        }
+
         @media (max-width: 900px) {
           .plans {
             grid-template-columns: 1fr;
@@ -306,6 +372,8 @@ export default function BillingPage() {
             "SSO & audit logs",
             "Slack & GitHub support",
           ]}
+          showCustomBilling
+          onCustomBilling={() => setShowCustomBillingModal(true)}
         />
       </section>
 
@@ -364,6 +432,73 @@ export default function BillingPage() {
         </div>
       )}
 
+      {showCustomBillingModal && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="custom-billing-modal-title">
+          <div className="modal">
+            <h3 id="custom-billing-modal-title">Request custom billing plan</h3>
+            <p>
+              Tell us about your organization and we&apos;ll put together a custom Enterprise plan for you.
+            </p>
+            <form onSubmit={handleCustomBillingSubmit}>
+              <div className="form-group">
+                <label htmlFor="custom-name">Name</label>
+                <input
+                  id="custom-name"
+                  type="text"
+                  value={customBillingForm.name}
+                  onChange={(e) => setCustomBillingForm((f) => ({ ...f, name: e.target.value }))}
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="custom-email">Work email</label>
+                <input
+                  id="custom-email"
+                  type="email"
+                  value={customBillingForm.email}
+                  onChange={(e) => setCustomBillingForm((f) => ({ ...f, email: e.target.value }))}
+                  placeholder="you@company.com"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="custom-company">Company</label>
+                <input
+                  id="custom-company"
+                  type="text"
+                  value={customBillingForm.company}
+                  onChange={(e) => setCustomBillingForm((f) => ({ ...f, company: e.target.value }))}
+                  placeholder="Company name"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="custom-message">Message (optional)</label>
+                <textarea
+                  id="custom-message"
+                  value={customBillingForm.message}
+                  onChange={(e) => setCustomBillingForm((f) => ({ ...f, message: e.target.value }))}
+                  placeholder="Tell us about your team size, volume, or special requirements"
+                />
+              </div>
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="modal-btn cancel"
+                  onClick={() => setShowCustomBillingModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="modal-btn primary">
+                  Request quote
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <section className="billing-section">
         <h2>Usage & overages</h2>
         <p>
@@ -384,7 +519,18 @@ export default function BillingPage() {
   );
 }
 
-function Plan({ name, price, description, features, highlighted, showDowngrade, onDowngrade }: PlanProps) {
+function Plan({
+  name,
+  price,
+  description,
+  features,
+  highlighted,
+  showDowngrade,
+  onDowngrade,
+  showCustomBilling,
+  onCustomBilling,
+}: PlanProps) {
+  const hasActions = (showDowngrade && onDowngrade) || (showCustomBilling && onCustomBilling);
   return (
     <div className={`plan ${highlighted ? "highlighted" : ""}`}>
       <h3>{name}</h3>
@@ -395,14 +541,26 @@ function Plan({ name, price, description, features, highlighted, showDowngrade, 
           <li key={f}>{f}</li>
         ))}
       </ul>
-      {showDowngrade && onDowngrade && (
+      {hasActions && (
         <div className="plan-actions">
-          <button
-            className="plan-btn downgrade"
-            onClick={onDowngrade}
-          >
-            Downgrade
-          </button>
+          {showCustomBilling && onCustomBilling && (
+            <button
+              type="button"
+              className="plan-btn primary"
+              onClick={onCustomBilling}
+            >
+              Get a custom quote
+            </button>
+          )}
+          {showDowngrade && onDowngrade && (
+            <button
+              type="button"
+              className="plan-btn downgrade"
+              onClick={onDowngrade}
+            >
+              Downgrade
+            </button>
+          )}
         </div>
       )}
     </div>
