@@ -12,6 +12,8 @@ type PlanProps = {
   onDowngrade?: () => void;
   showCustomBilling?: boolean;
   onCustomBilling?: () => void;
+  showStudentEmailCta?: boolean;
+  onStudentEmailCta?: () => void;
 };
 
 type DowngradeTarget = "team" | "starter" | null;
@@ -26,6 +28,8 @@ export default function BillingPage() {
     company: "",
     message: "",
   });
+  const [showStudentEmailModal, setShowStudentEmailModal] = useState(false);
+  const [studentEmail, setStudentEmail] = useState("");
 
   const handleDowngradeClick = (from: DowngradeTarget) => {
     setDowngradeFrom(from);
@@ -46,6 +50,12 @@ export default function BillingPage() {
     e.preventDefault();
     setShowCustomBillingModal(false);
     setCustomBillingForm({ name: "", email: "", company: "", message: "" });
+  };
+
+  const handleStudentEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowStudentEmailModal(false);
+    setStudentEmail("");
   };
 
   return (
@@ -153,6 +163,47 @@ export default function BillingPage() {
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
+        }
+
+        .plan-student-form {
+          margin-top: 16px;
+        }
+
+        .plan-student-label {
+          display: block;
+          font-size: 13px;
+          color: #9ca3af;
+          margin-bottom: 6px;
+        }
+
+        .plan-student-input-row {
+          display: flex;
+          gap: 8px;
+        }
+
+        .plan-student-input-row input {
+          flex: 1;
+          padding: 8px 10px;
+          border-radius: 8px;
+          border: 1px solid #374151;
+          background: #020617;
+          color: #e5e7eb;
+          font-size: 13px;
+        }
+
+        .plan-student-input-row button {
+          padding: 8px 14px;
+          font-size: 13px;
+          border-radius: 8px;
+          border: 1px solid #4b5563;
+          background: #111827;
+          color: #e5e7eb;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+
+        .plan-student-input-row button:hover {
+          background: #1f2937;
         }
 
         .plan-btn {
@@ -346,6 +397,21 @@ export default function BillingPage() {
         />
 
         <Plan
+          name="Student"
+          price="$19 / month"
+          description="For individual students learning and building"
+          features={[
+            "Up to 10 demo videos / month",
+            "PR video comments on personal projects",
+            "Basic narration",
+            "Changelog embeds",
+            "Student discount pricing",
+          ]}
+          showStudentEmailCta
+          onStudentEmailCta={() => setShowStudentEmailModal(true)}
+        />
+
+        <Plan
           name="Team"
           price="$149 / month"
           description="For teams shipping weekly"
@@ -499,6 +565,42 @@ export default function BillingPage() {
         </div>
       )}
 
+      {showStudentEmailModal && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="student-email-modal-title">
+          <div className="modal">
+            <h3 id="student-email-modal-title">Apply for student pricing</h3>
+            <p>
+              Enter your student email to apply for discounted pricing on the Student plan.
+            </p>
+            <form onSubmit={handleStudentEmailSubmit}>
+              <div className="form-group">
+                <label htmlFor="student-email">Student email</label>
+                <input
+                  id="student-email"
+                  type="email"
+                  placeholder="you@university.edu"
+                  value={studentEmail}
+                  onChange={(e) => setStudentEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="modal-btn cancel"
+                  onClick={() => setShowStudentEmailModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="modal-btn primary">
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <section className="billing-section">
         <h2>Usage & overages</h2>
         <p>
@@ -529,8 +631,13 @@ function Plan({
   onDowngrade,
   showCustomBilling,
   onCustomBilling,
+  showStudentEmailCta,
+  onStudentEmailCta,
 }: PlanProps) {
-  const hasActions = (showDowngrade && onDowngrade) || (showCustomBilling && onCustomBilling);
+  const hasActions =
+    (showDowngrade && onDowngrade) ||
+    (showCustomBilling && onCustomBilling) ||
+    (showStudentEmailCta && onStudentEmailCta);
   return (
     <div className={`plan ${highlighted ? "highlighted" : ""}`}>
       <h3>{name}</h3>
@@ -543,6 +650,15 @@ function Plan({
       </ul>
       {hasActions && (
         <div className="plan-actions">
+          {showStudentEmailCta && onStudentEmailCta && (
+            <button
+              type="button"
+              className="plan-btn"
+              onClick={onStudentEmailCta}
+            >
+              Apply with student email
+            </button>
+          )}
           {showCustomBilling && onCustomBilling && (
             <button
               type="button"
