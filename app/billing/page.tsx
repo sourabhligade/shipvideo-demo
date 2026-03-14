@@ -14,9 +14,11 @@ type PlanProps = {
   onCustomBilling?: () => void;
   showStudentEmailCta?: boolean;
   onStudentEmailCta?: () => void;
+  showCompanyEmailCta?: boolean;
+  onCompanyEmailCta?: () => void;
 };
 
-type DowngradeTarget = "team" | "starter" | null;
+type DowngradeTarget = "team" | null;
 
 export default function BillingPage() {
   const [showDowngradeModal, setShowDowngradeModal] = useState(false);
@@ -30,6 +32,8 @@ export default function BillingPage() {
   });
   const [showStudentEmailModal, setShowStudentEmailModal] = useState(false);
   const [studentEmail, setStudentEmail] = useState("");
+  const [showCompanyEmailModal, setShowCompanyEmailModal] = useState(false);
+  const [companyEmail, setCompanyEmail] = useState("");
 
   const handleDowngradeClick = (from: DowngradeTarget) => {
     setDowngradeFrom(from);
@@ -56,6 +60,12 @@ export default function BillingPage() {
     e.preventDefault();
     setShowStudentEmailModal(false);
     setStudentEmail("");
+  };
+
+  const handleCompanyEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowCompanyEmailModal(false);
+    setCompanyEmail("");
   };
 
   return (
@@ -383,20 +393,6 @@ export default function BillingPage() {
 
       <section className="plans">
         <Plan
-          name="Starter"
-          price="$49 / month"
-          description="For small teams validating the workflow"
-          features={[
-            "Up to 20 demo videos / month",
-            "PR video comments",
-            "Basic narration",
-            "Changelog embeds",
-          ]}
-          showDowngrade
-          onDowngrade={() => handleDowngradeClick("starter")}
-        />
-
-        <Plan
           name="Student"
           price="$19 / month"
           description="For individual students learning and building"
@@ -423,6 +419,8 @@ export default function BillingPage() {
             "Priority CI execution",
           ]}
           highlighted
+          showCompanyEmailCta
+          onCompanyEmailCta={() => setShowCompanyEmailModal(true)}
           showDowngrade
           onDowngrade={() => handleDowngradeClick("team")}
         />
@@ -446,37 +444,17 @@ export default function BillingPage() {
       {showDowngradeModal && downgradeFrom && (
         <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="downgrade-modal-title">
           <div className="modal">
-            <h3 id="downgrade-modal-title">
-              {downgradeFrom === "team"
-                ? "Confirm downgrade to Starter"
-                : "Confirm downgrade to Free"}
-            </h3>
-            {downgradeFrom === "team" ? (
-              <>
-                <p>
-                  Downgrading from Team to Starter will remove access to the following features:
-                </p>
-                <ul>
-                  <li>Up to 100 demo videos / month (reduced to 20)</li>
-                  <li>Custom Playwright flows</li>
-                  <li>AI-generated summaries</li>
-                  <li>Release email embeds</li>
-                  <li>Priority CI execution</li>
-                </ul>
-              </>
-            ) : (
-              <>
-                <p>
-                  Downgrading from Starter to Free will remove access to the following features:
-                </p>
-                <ul>
-                  <li>Up to 20 demo videos / month</li>
-                  <li>PR video comments</li>
-                  <li>Basic narration</li>
-                  <li>Changelog embeds</li>
-                </ul>
-              </>
-            )}
+            <h3 id="downgrade-modal-title">Confirm downgrade to Student</h3>
+            <p>
+              Downgrading from Team to Student will remove access to the following features:
+            </p>
+            <ul>
+              <li>Up to 100 demo videos / month (reduced to 10)</li>
+              <li>Custom Playwright flows</li>
+              <li>AI-generated summaries</li>
+              <li>Release email embeds</li>
+              <li>Priority CI execution</li>
+            </ul>
             <p>
               Are you sure you want to proceed with the downgrade?
             </p>
@@ -601,6 +579,42 @@ export default function BillingPage() {
         </div>
       )}
 
+      {showCompanyEmailModal && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="company-email-modal-title">
+          <div className="modal">
+            <h3 id="company-email-modal-title">Apply with company email</h3>
+            <p>
+              Enter your company email to apply for the Team plan.
+            </p>
+            <form onSubmit={handleCompanyEmailSubmit}>
+              <div className="form-group">
+                <label htmlFor="company-email">Company email</label>
+                <input
+                  id="company-email"
+                  type="email"
+                  placeholder="you@company.com"
+                  value={companyEmail}
+                  onChange={(e) => setCompanyEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="modal-actions">
+                <button
+                  type="button"
+                  className="modal-btn cancel"
+                  onClick={() => setShowCompanyEmailModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="modal-btn primary">
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <section className="billing-section">
         <h2>Usage & overages</h2>
         <p>
@@ -633,11 +647,14 @@ function Plan({
   onCustomBilling,
   showStudentEmailCta,
   onStudentEmailCta,
+  showCompanyEmailCta,
+  onCompanyEmailCta,
 }: PlanProps) {
   const hasActions =
     (showDowngrade && onDowngrade) ||
     (showCustomBilling && onCustomBilling) ||
-    (showStudentEmailCta && onStudentEmailCta);
+    (showStudentEmailCta && onStudentEmailCta) ||
+    (showCompanyEmailCta && onCompanyEmailCta);
   return (
     <div className={`plan ${highlighted ? "highlighted" : ""}`}>
       <h3>{name}</h3>
@@ -657,6 +674,15 @@ function Plan({
               onClick={onStudentEmailCta}
             >
               Apply with student email
+            </button>
+          )}
+          {showCompanyEmailCta && onCompanyEmailCta && (
+            <button
+              type="button"
+              className="plan-btn"
+              onClick={onCompanyEmailCta}
+            >
+              Apply with company email
             </button>
           )}
           {showCustomBilling && onCustomBilling && (
