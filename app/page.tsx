@@ -121,6 +121,24 @@ export default function Home() {
         Testimonials
       </button>
 
+      <button
+        id="waitlist-button"
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#14b8a6",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "20px",
+          marginLeft: "12px",
+        }}
+        onClick={() => router.push("/waitlist")}
+      >
+        Waitlist
+      </button>
+
       {showPopup && (
         <div
           id="popup"
