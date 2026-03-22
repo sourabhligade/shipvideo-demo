@@ -139,6 +139,24 @@ export default function Home() {
         Waitlist
       </button>
 
+      <button
+        id="settings-button"
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#64748b",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "20px",
+          marginLeft: "12px",
+        }}
+        onClick={() => router.push("/settings")}
+      >
+        Settings
+      </button>
+
       {showPopup && (
         <div
           id="popup"
