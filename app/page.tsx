@@ -157,6 +157,99 @@ export default function Home() {
         Settings
       </button>
 
+      {/* Complex multi-action control: nested targets for E2E / manual testing */}
+      <div
+        id="nested-test-lab-panel"
+        style={{
+          marginTop: 28,
+          padding: 16,
+          maxWidth: 420,
+          borderRadius: 14,
+          border: "2px solid transparent",
+          background:
+            "linear-gradient(#0b1220, #0b1220) padding-box, linear-gradient(135deg, #6366f1, #a855f7, #ec4899) border-box",
+          boxShadow: "0 12px 40px rgba(99, 102, 241, 0.25)",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: "#a5b4fc",
+            marginBottom: 10,
+          }}
+        >
+          Nested navigation lab
+        </div>
+        <p style={{ margin: "0 0 12px", fontSize: 14, color: "#94a3b8", lineHeight: 1.5 }}>
+          Multi-step routes under <code>/test-lab</code> — deep chain + side branch. Use
+          nested buttons to jump to different depths.
+        </p>
+        <button
+          type="button"
+          id="nested-lab-open-main"
+          onClick={() => router.push("/test-lab")}
+          style={{
+            width: "100%",
+            padding: "12px 16px",
+            fontSize: 15,
+            fontWeight: 600,
+            border: "none",
+            borderRadius: 10,
+            cursor: "pointer",
+            background: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+            color: "#eef2ff",
+            marginBottom: 10,
+          }}
+        >
+          Open test lab (start here)
+        </button>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 8,
+          }}
+        >
+          <button
+            type="button"
+            id="nested-lab-quick-phase2"
+            onClick={() => router.push("/test-lab/phase-1/phase-2")}
+            style={{
+              padding: "10px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: "1px solid #334155",
+              background: "#1e293b",
+              color: "#e2e8f0",
+              cursor: "pointer",
+            }}
+          >
+            Quick jump → Phase 2
+          </button>
+          <button
+            type="button"
+            id="nested-lab-quick-side-review"
+            onClick={() => router.push("/test-lab/side-route/review")}
+            style={{
+              padding: "10px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: "1px solid #334155",
+              background: "#1e293b",
+              color: "#e2e8f0",
+              cursor: "pointer",
+            }}
+          >
+            Quick jump → Side review
+          </button>
+        </div>
+      </div>
+
       {showPopup && (
         <div
           id="popup"
