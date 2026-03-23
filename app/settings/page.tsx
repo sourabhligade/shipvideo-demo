@@ -164,7 +164,7 @@ export default function SettingsPage() {
 
         <h2>Billing</h2>
         <div className="settings-option">
-          <p>Start a 2-step nested flow to download your bill and verify success popups.</p>
+          <p>Simple flow to download your bill and verify a success popup.</p>
           <Link href="/settings/download-bill" className="settings-link-btn">
             Download bill flow
           </Link>
