@@ -113,6 +113,28 @@ export default function SettingsPage() {
           word-break: break-all;
           font-family: ui-monospace, monospace;
         }
+        .settings-separator {
+          margin: 22px 0;
+          border: none;
+          border-top: 1px solid #1f2937;
+        }
+        .settings-link-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 18px;
+          font-size: 14px;
+          font-weight: 500;
+          border-radius: 8px;
+          border: 1px solid #38bdf8;
+          background: #0369a1;
+          color: #fff;
+          text-decoration: none;
+          white-space: nowrap;
+        }
+        .settings-link-btn:hover {
+          background: #075985;
+        }
       `}</style>
 
       <Link href="/" className="settings-back">
@@ -137,6 +159,16 @@ export default function SettingsPage() {
             <code>{apiKey}</code>
           </div>
         )}
+
+        <hr className="settings-separator" />
+
+        <h2>Billing</h2>
+        <div className="settings-option">
+          <p>Start a 2-step nested flow to download your bill and verify success popups.</p>
+          <Link href="/settings/download-bill" className="settings-link-btn">
+            Download bill flow
+          </Link>
+        </div>
       </section>
     </main>
   );
