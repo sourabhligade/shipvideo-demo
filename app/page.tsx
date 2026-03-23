@@ -250,6 +250,97 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Second nested flow with a different UI theme */}
+      <div
+        id="nested-scenario-matrix-panel"
+        style={{
+          marginTop: 18,
+          padding: 16,
+          maxWidth: 420,
+          borderRadius: 14,
+          background: "#f8fafc",
+          border: "1px solid #dbeafe",
+          boxShadow: "0 10px 30px rgba(15, 23, 42, 0.12)",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: "#4338ca",
+            marginBottom: 10,
+          }}
+        >
+          Scenario matrix
+        </div>
+        <p style={{ margin: "0 0 12px", fontSize: 14, color: "#475569", lineHeight: 1.5 }}>
+          Another nested route setup with lighter card UI under <code>/scenario-matrix</code>.
+        </p>
+        <button
+          type="button"
+          id="scenario-matrix-open-root"
+          onClick={() => router.push("/scenario-matrix")}
+          style={{
+            width: "100%",
+            padding: "12px 16px",
+            fontSize: 15,
+            fontWeight: 600,
+            border: "none",
+            borderRadius: 10,
+            cursor: "pointer",
+            background: "#0ea5e9",
+            color: "#f0f9ff",
+            marginBottom: 10,
+          }}
+        >
+          Open scenario matrix
+        </button>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 8,
+          }}
+        >
+          <button
+            type="button"
+            id="scenario-matrix-quick-track-b"
+            onClick={() => router.push("/scenario-matrix/track-a/track-b")}
+            style={{
+              padding: "10px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: "1px solid #bfdbfe",
+              background: "#eff6ff",
+              color: "#1d4ed8",
+              cursor: "pointer",
+            }}
+          >
+            Quick jump → Track B
+          </button>
+          <button
+            type="button"
+            id="scenario-matrix-quick-alt-final"
+            onClick={() => router.push("/scenario-matrix/alt-path/final")}
+            style={{
+              padding: "10px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: "1px solid #f5d0fe",
+              background: "#fdf4ff",
+              color: "#a21caf",
+              cursor: "pointer",
+            }}
+          >
+            Quick jump → Alt final
+          </button>
+        </div>
+      </div>
+
       {showPopup && (
         <div
           id="popup"
