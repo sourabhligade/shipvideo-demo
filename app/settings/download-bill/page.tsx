@@ -62,21 +62,6 @@ export default function DownloadBillStepOnePage() {
         .bill-btn:hover {
           background: #c2410c;
         }
-        .bill-next {
-          padding: 10px 18px;
-          border-radius: 8px;
-          border: 1px solid #38bdf8;
-          background: #0369a1;
-          color: #fff;
-          text-decoration: none;
-          font-size: 14px;
-          font-weight: 500;
-          display: inline-flex;
-          align-items: center;
-        }
-        .bill-next:hover {
-          background: #075985;
-        }
         .popup-overlay {
           position: fixed;
           inset: 0;
@@ -110,9 +95,9 @@ export default function DownloadBillStepOnePage() {
       </Link>
 
       <section className="bill-card">
-        <h1>Download bill flow (Step 1)</h1>
+        <h1>Download bill</h1>
         <p>
-          First nested step. Click download to simulate bill generation and show success popup.
+          Click download to simulate bill generation and show a success popup.
         </p>
 
         <div className="bill-actions">
@@ -121,10 +106,10 @@ export default function DownloadBillStepOnePage() {
             className="bill-btn"
             onClick={() => setShowSuccessPopup(true)}
           >
-            Download bill (step 1)
+            Download bill
           </button>
-          <Link href="/settings/download-bill/confirm" className="bill-next">
-            Go to step 2
+          <Link href="/settings" className="bill-link">
+            Back to settings
           </Link>
         </div>
       </section>
@@ -133,7 +118,7 @@ export default function DownloadBillStepOnePage() {
         <div className="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="bill-step1-popup-title">
           <div className="popup">
             <h3 id="bill-step1-popup-title">Success</h3>
-            <p>Bill downloaded successfully in step 1.</p>
+            <p>Bill downloaded successfully.</p>
             <button type="button" className="bill-btn" onClick={() => setShowSuccessPopup(false)}>
               OK
             </button>
