@@ -12,7 +12,7 @@ export default function FAQ() {
     },
     {
       question: "How do I get started?",
-      answer: "You can get started by clicking the 'Click Me' button on the main page to see a demo video, or navigate to the Dashboard to explore more features.",
+      answer: "You can get startedg by clicking the 'Click Me' button on the main page to see a demo video, or navigate to the Dashboard to explore more features.",
     },
     {
       question: "Is there a free trial available?",
