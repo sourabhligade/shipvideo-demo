@@ -169,6 +169,16 @@ export default function SettingsPage() {
             Download bill flow
           </Link>
         </div>
+
+        <hr className="settings-separator" />
+
+        <h2>Account Recharge</h2>
+        <div className="settings-option">
+          <p>Choose a preset or custom amount, then confirm recharge in a popup.</p>
+          <Link href="/settings/recharge" className="settings-link-btn">
+            Recharge account
+          </Link>
+        </div>
       </section>
     </main>
   );
