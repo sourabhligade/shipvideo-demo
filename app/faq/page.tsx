@@ -8,7 +8,7 @@ export default function FAQ() {
   const faqs = [
     {
       question: "What is ShipVideo?",
-      answer: "ShipVideo is a platform that helps you create and manage video content for your projects and applications.",
+      answer: "ShipVideo is a platfeorm that helps you create and manage video content for your projects and applications.",
     },
     {
       question: "How do I get started?",
