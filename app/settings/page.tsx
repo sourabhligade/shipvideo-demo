@@ -23,6 +23,9 @@ export default function SettingsPage() {
   const [customAmount, setCustomAmount] = useState("");
   const [showRechargeModal, setShowRechargeModal] = useState(false);
   const [showRechargeSuccessModal, setShowRechargeSuccessModal] = useState(false);
+  const [showSecurityFlow, setShowSecurityFlow] = useState(false);
+  const [securityStep, setSecurityStep] = useState<1 | 2 | 3>(1);
+  const [selectedVerificationMethod, setSelectedVerificationMethod] = useState<string | null>(null);
 
   const handleGenerateApi = useCallback(() => {
     const key = generateNumericApiKey();
@@ -41,6 +44,12 @@ export default function SettingsPage() {
   const handleProceedRecharge = useCallback(() => {
     setShowRechargeModal(false);
     setShowRechargeSuccessModal(true);
+  }, []);
+
+  const startSecurityCheck = useCallback(() => {
+    setShowSecurityFlow(true);
+    setSecurityStep(1);
+    setSelectedVerificationMethod(null);
   }, []);
 
   return (
@@ -297,6 +306,30 @@ export default function SettingsPage() {
         .modal-actions.center {
           justify-content: center;
         }
+        .step-note {
+          font-size: 13px;
+          color: #94a3b8;
+          margin-bottom: 14px;
+        }
+        .method-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 10px;
+          margin-bottom: 16px;
+        }
+        .method-btn {
+          width: 100%;
+          text-align: left;
+          padding: 10px 12px;
+          border-radius: 8px;
+          border: 1px solid #374151;
+          background: #111827;
+          color: #e5e7eb;
+          cursor: pointer;
+        }
+        .method-btn:hover {
+          background: #1f2937;
+        }
       `}</style>
 
       <Link href="/" className="settings-back">
@@ -369,6 +402,16 @@ export default function SettingsPage() {
         <p className="settings-note">
           All purchases are final. Please refer to our refund policy.
         </p>
+
+        <hr className="settings-separator" />
+
+        <h2>Security Check</h2>
+        <div className="settings-option">
+          <p>Run a nested 3-step account security verification flow.</p>
+          <button type="button" className="settings-btn" onClick={startSecurityCheck}>
+            Start security flow
+          </button>
+        </div>
       </section>
 
       {showRechargeModal && (
@@ -416,6 +459,94 @@ export default function SettingsPage() {
                 Done
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showSecurityFlow && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="security-flow-title">
+          <div className="modal">
+            {securityStep === 1 && (
+              <>
+                <h3 id="security-flow-title">Step 1: Start Verification</h3>
+                <p className="step-note">Choose continue to select your verification method.</p>
+                <div className="modal-actions">
+                  <button type="button" className="modal-btn cancel" onClick={() => setShowSecurityFlow(false)}>
+                    Cancel
+                  </button>
+                  <button type="button" className="modal-btn primary" onClick={() => setSecurityStep(2)}>
+                    Continue
+                  </button>
+                </div>
+              </>
+            )}
+
+            {securityStep === 2 && (
+              <>
+                <h3 id="security-flow-title">Step 2: Pick Method</h3>
+                <p className="step-note">Select one method to verify your account.</p>
+                <div className="method-grid">
+                  <button
+                    type="button"
+                    className="method-btn"
+                    onClick={() => {
+                      setSelectedVerificationMethod("Email OTP");
+                      setSecurityStep(3);
+                    }}
+                  >
+                    Verify with Email OTP
+                  </button>
+                  <button
+                    type="button"
+                    className="method-btn"
+                    onClick={() => {
+                      setSelectedVerificationMethod("SMS OTP");
+                      setSecurityStep(3);
+                    }}
+                  >
+                    Verify with SMS OTP
+                  </button>
+                  <button
+                    type="button"
+                    className="method-btn"
+                    onClick={() => {
+                      setSelectedVerificationMethod("Authenticator App");
+                      setSecurityStep(3);
+                    }}
+                  >
+                    Verify with Authenticator App
+                  </button>
+                </div>
+                <div className="modal-actions">
+                  <button type="button" className="modal-btn cancel" onClick={() => setSecurityStep(1)}>
+                    Back
+                  </button>
+                </div>
+              </>
+            )}
+
+            {securityStep === 3 && (
+              <>
+                <h3 id="security-flow-title">Step 3: Completed</h3>
+                <p>
+                  Security verification completed successfully using{" "}
+                  <strong>{selectedVerificationMethod}</strong>.
+                </p>
+                <div className="modal-actions">
+                  <button
+                    type="button"
+                    className="modal-btn primary"
+                    onClick={() => {
+                      setShowSecurityFlow(false);
+                      setSecurityStep(1);
+                      setSelectedVerificationMethod(null);
+                    }}
+                  >
+                    Done
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
