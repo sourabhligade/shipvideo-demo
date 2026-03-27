@@ -1,1 +1,1 @@
-Just a test repo for shipdemos.com [`create-next-app`](https://shipdemos.com ).
+Just a test repo for shipdemos.com [`Shipdemos.com`](https://shipdemos.com ).
