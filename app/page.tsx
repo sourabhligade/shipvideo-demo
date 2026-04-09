@@ -1,15 +1,38 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const router = useRouter();
 
   return (
     <main style={{ padding: 40, fontFamily: "sans-serif" }}>
       <h1>ShipVideo Demo Page</h1>
+
+      <button
+        id="try-premium-button"
+        type="button"
+        style={{
+          padding: "12px 24px",
+          fontSize: "18px",
+          fontWeight: 700,
+          background: "linear-gradient(135deg, #f97316, #ea580c)",
+          color: "white",
+          border: "none",
+          borderRadius: "999px",
+          cursor: "pointer",
+          marginTop: "20px",
+          marginRight: "12px",
+          boxShadow: "0 14px 30px rgba(249, 115, 22, 0.28)",
+        }}
+        onClick={() => setShowPremiumModal(true)}
+      >
+        Try Premium
+      </button>
 
       <button
         id="new-feature"
@@ -377,6 +400,187 @@ export default function Home() {
               controls
               style={{ width: "100%", maxWidth: 800 }}
             />
+          </div>
+        </div>
+      )}
+
+      {showPremiumModal && (
+        <div
+          id="premium-pricing-modal-backdrop"
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(15, 23, 42, 0.55)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+            zIndex: 50,
+          }}
+          onClick={() => setShowPremiumModal(false)}
+        >
+          <div
+            id="premium-pricing-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="premium-pricing-title"
+            style={{
+              width: "100%",
+              maxWidth: 560,
+              borderRadius: 24,
+              padding: 28,
+              background:
+                "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98))",
+              boxShadow: "0 30px 80px rgba(15, 23, 42, 0.24)",
+              border: "1px solid rgba(226, 232, 240, 0.9)",
+            }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: 16,
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    padding: "6px 10px",
+                    borderRadius: 999,
+                    backgroundColor: "#fff7ed",
+                    color: "#c2410c",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                    marginBottom: 14,
+                  }}
+                >
+                  Pricing modal
+                </div>
+                <h2
+                  id="premium-pricing-title"
+                  style={{ margin: 0, fontSize: 30, color: "#0f172a" }}
+                >
+                  Activate premium trial
+                </h2>
+                <p
+                  style={{
+                    margin: "10px 0 0",
+                    color: "#475569",
+                    fontSize: 15,
+                    lineHeight: 1.6,
+                    maxWidth: 420,
+                  }}
+                >
+                  Start a 14-day premium workspace trial with unlimited recordings,
+                  team review links, and advanced export controls.
+                </p>
+              </div>
+
+              <button
+                id="premium-pricing-close"
+                type="button"
+                aria-label="Close pricing modal"
+                onClick={() => setShowPremiumModal(false)}
+                style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 999,
+                  border: "1px solid #cbd5e1",
+                  backgroundColor: "white",
+                  color: "#334155",
+                  cursor: "pointer",
+                  fontSize: 20,
+                  lineHeight: 1,
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            <div
+              style={{
+                marginTop: 24,
+                padding: 20,
+                borderRadius: 18,
+                background:
+                  "linear-gradient(135deg, rgba(255, 247, 237, 1), rgba(255, 255, 255, 1))",
+                border: "1px solid #fed7aa",
+              }}
+            >
+              <div style={{ fontSize: 14, color: "#9a3412", fontWeight: 700 }}>
+                Premium Trial
+              </div>
+              <div
+                style={{
+                  marginTop: 6,
+                  fontSize: 34,
+                  fontWeight: 800,
+                  color: "#0f172a",
+                }}
+              >
+                $0 for 14 days
+              </div>
+              <p style={{ margin: "10px 0 16px", fontSize: 14, color: "#475569" }}>
+                Then $49/month per workspace. Cancel before renewal with no charge.
+              </p>
+              <ul style={{ margin: 0, paddingLeft: 18, color: "#334155", lineHeight: 1.8 }}>
+                <li>Unlimited auto-generated product demos</li>
+                <li>Private team review rooms and approval history</li>
+                <li>Priority render queue with HD exports</li>
+              </ul>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 12,
+                marginTop: 24,
+              }}
+            >
+              <Link
+                id="start-premium-trial-button"
+                href="/account/billing/trial-activated"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "14px 20px",
+                  borderRadius: 12,
+                  textDecoration: "none",
+                  background: "linear-gradient(135deg, #f97316, #ea580c)",
+                  color: "#fff",
+                  fontWeight: 700,
+                  fontSize: 15,
+                  boxShadow: "0 16px 30px rgba(234, 88, 12, 0.25)",
+                }}
+              >
+                Start 14-day trial
+              </Link>
+
+              <button
+                id="premium-pricing-cancel"
+                type="button"
+                onClick={() => setShowPremiumModal(false)}
+                style={{
+                  padding: "14px 20px",
+                  borderRadius: 12,
+                  border: "1px solid #cbd5e1",
+                  backgroundColor: "white",
+                  color: "#334155",
+                  fontWeight: 600,
+                  fontSize: 15,
+                  cursor: "pointer",
+                }}
+              >
+                Maybe later
+              </button>
+            </div>
           </div>
         </div>
       )}
