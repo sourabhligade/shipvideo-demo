@@ -10,7 +10,7 @@ export default function DashboardPage() {
           .dashboard {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 48px;
+            padding: 47px;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             color: #111;
           }
