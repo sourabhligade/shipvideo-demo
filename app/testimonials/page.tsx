@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const testimonials = [
@@ -67,6 +68,47 @@ export default function TestimonialsPage() {
       <div
         style={{
           display: "flex",
+          alignItems: "center",
+          gap: 12,
+          marginBottom: 32,
+          padding: 20,
+          maxWidth: 640,
+          borderRadius: 12,
+          border: "1px solid #1f2937",
+          background: "linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(17, 24, 39, 0.9))",
+        }}
+      >
+        <div style={{ flex: 1 }}>
+          <p style={{ margin: "0 0 6px", color: "#f9fafb", fontWeight: 600 }}>
+            Ready to try upcoming features?
+          </p>
+          <p style={{ margin: 0, color: "#9ca3af", fontSize: 14 }}>
+            Join the waitlist to get early access announcements.
+          </p>
+        </div>
+        <Link
+          href="/waitlist"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "10px 16px",
+            borderRadius: 8,
+            backgroundColor: "#ea580c",
+            color: "#fff",
+            textDecoration: "none",
+            fontSize: 14,
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+          }}
+        >
+          Join waitlist
+        </Link>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
           flexDirection: "column",
           gap: 20,
           maxWidth: 640,
@@ -92,7 +134,7 @@ export default function TestimonialsPage() {
                 fontStyle: "italic",
               }}
             >
-              "{t.quote}"
+              &ldquo;{t.quote}&rdquo;
             </p>
             <p style={{ margin: 0, fontSize: 15, fontWeight: 600, color: "#f9fafb" }}>
               {t.author}

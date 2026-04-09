@@ -1,9 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function WaitlistPage() {
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const router = useRouter();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   return (
     <main className="waitlist-page">
@@ -104,6 +107,32 @@ export default function WaitlistPage() {
         .modal-btn:hover {
           background: #c2410c;
         }
+
+        .modal-btn.secondary {
+          background: transparent;
+          border: 1px solid #4b5563;
+          color: #e5e7eb;
+        }
+
+        .success-card {
+          margin-top: 20px;
+          padding: 18px;
+          border-radius: 14px;
+          border: 1px solid #14532d;
+          background: linear-gradient(135deg, rgba(20, 83, 45, 0.25), rgba(22, 101, 52, 0.15));
+        }
+
+        .success-card h2 {
+          margin: 0 0 8px;
+          color: #dcfce7;
+          font-size: 22px;
+        }
+
+        .success-card p {
+          margin: 0 0 16px;
+          color: #bbf7d0;
+          line-height: 1.6;
+        }
       `}</style>
 
       <section className="waitlist-card">
@@ -111,32 +140,60 @@ export default function WaitlistPage() {
         <p className="waitlist-description">
           This is a dummy waitlist card for upcoming features.
         </p>
-        <button
-          type="button"
-          className="waitlist-btn"
-          onClick={() => setShowSuccessModal(true)}
-        >
-          Apply to waitlist
-        </button>
+        {!isSubmitted ? (
+          <button
+            type="button"
+            className="waitlist-btn"
+            onClick={() => setShowConfirmModal(true)}
+          >
+            Apply to waitlist
+          </button>
+        ) : (
+          <div className="success-card">
+            <h2>You&apos;re on the list</h2>
+            <p>
+              Your waitlist application is confirmed. We&apos;ll notify you when early
+              access opens up.
+            </p>
+            <button
+              type="button"
+              className="waitlist-btn"
+              onClick={() => router.push("/")}
+            >
+              Back to home
+            </button>
+          </div>
+        )}
       </section>
 
-      {showSuccessModal && (
+      {showConfirmModal && (
         <div
           className="modal-overlay"
           role="dialog"
           aria-modal="true"
-          aria-labelledby="waitlist-success-title"
+          aria-labelledby="waitlist-confirm-title"
         >
           <div className="modal">
-            <h3 id="waitlist-success-title">Application status</h3>
-            <p>Application for waitlist successful.</p>
+            <h3 id="waitlist-confirm-title">Confirm waitlist application</h3>
+            <p>Apply to the waitlist and reserve your place for upcoming ShipVideo features.</p>
             <div className="modal-actions">
               <button
                 type="button"
-                className="modal-btn"
-                onClick={() => setShowSuccessModal(false)}
+                className="modal-btn secondary"
+                onClick={() => setShowConfirmModal(false)}
+                style={{ marginRight: 10 }}
               >
-                OK
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="modal-btn"
+                onClick={() => {
+                  setShowConfirmModal(false);
+                  setIsSubmitted(true);
+                }}
+              >
+                Confirm
               </button>
             </div>
           </div>
