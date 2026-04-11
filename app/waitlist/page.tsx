@@ -116,7 +116,7 @@ export default function WaitlistPage() {
 
         .success-card {
           margin-top: 20px;
-          padding: 18px;
+          padding: 19px;
           border-radius: 14px;
           border: 1px solid #14532d;
           background: linear-gradient(135deg, rgba(20, 83, 45, 0.25), rgba(22, 101, 52, 0.15));
