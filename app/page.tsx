@@ -180,6 +180,24 @@ export default function Home() {
         Settings
       </button>
 
+      <button
+        id="creator-journey-button"
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#0f766e",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "20px",
+          marginLeft: "12px",
+        }}
+        onClick={() => router.push("/creator-journey")}
+      >
+        Open creator journey
+      </button>
+
       {/* Complex multi-action control: nested targets for E2E / manual testing */}
       <div
         id="nested-test-lab-panel"
@@ -360,6 +378,98 @@ export default function Home() {
             }}
           >
             Quick jump → Alt final
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="nested-creator-journey-panel"
+        style={{
+          marginTop: 18,
+          padding: 16,
+          maxWidth: 420,
+          borderRadius: 16,
+          background:
+            "linear-gradient(160deg, rgba(236, 253, 245, 1), rgba(240, 253, 250, 1))",
+          border: "1px solid #99f6e4",
+          boxShadow: "0 10px 28px rgba(15, 118, 110, 0.14)",
+        }}
+      >
+        <div
+          style={{
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: "#0f766e",
+            marginBottom: 10,
+          }}
+        >
+          Creator journey
+        </div>
+        <p style={{ margin: "0 0 12px", fontSize: 14, color: "#115e59", lineHeight: 1.5 }}>
+          A third nested flow with a production handoff theme under{" "}
+          <code>/creator-journey</code>.
+        </p>
+        <button
+          type="button"
+          id="creator-journey-open-root"
+          onClick={() => router.push("/creator-journey")}
+          style={{
+            width: "100%",
+            padding: "12px 16px",
+            fontSize: 15,
+            fontWeight: 600,
+            border: "none",
+            borderRadius: 10,
+            cursor: "pointer",
+            background: "linear-gradient(135deg, #0f766e, #0d9488)",
+            color: "#f0fdfa",
+            marginBottom: 10,
+          }}
+        >
+          Open creator journey
+        </button>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 8,
+          }}
+        >
+          <button
+            type="button"
+            id="creator-journey-quick-kickoff"
+            onClick={() => router.push("/creator-journey/kickoff")}
+            style={{
+              padding: "10px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: "1px solid #99f6e4",
+              background: "#f0fdfa",
+              color: "#0f766e",
+              cursor: "pointer",
+            }}
+          >
+            Quick jump → Kickoff
+          </button>
+          <button
+            type="button"
+            id="creator-journey-quick-signoff"
+            onClick={() => router.push("/creator-journey/kickoff/client-signoff")}
+            style={{
+              padding: "10px 12px",
+              fontSize: 12,
+              fontWeight: 600,
+              borderRadius: 8,
+              border: "1px solid #a7f3d0",
+              background: "#ecfdf5",
+              color: "#047857",
+              cursor: "pointer",
+            }}
+          >
+            Quick jump → Sign-off
           </button>
         </div>
       </div>
