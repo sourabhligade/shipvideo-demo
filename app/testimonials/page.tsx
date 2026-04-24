@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const testimonials = [
@@ -65,97 +64,7 @@ export default function TestimonialsPage() {
         What our customers say about ShipVideo.
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
-          marginBottom: 32,
-          maxWidth: 640,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: 20,
-            borderRadius: 12,
-            border: "1px solid #1f2937",
-            background:
-              "linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(17, 24, 39, 0.9))",
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <p style={{ margin: "0 0 6px", color: "#f9fafb", fontWeight: 600 }}>
-              Ready to try upcoming features?
-            </p>
-            <p style={{ margin: 0, color: "#9ca3af", fontSize: 14 }}>
-              Join the waitlist to get early access announcements.
-            </p>
-          </div>
-          <Link
-            href="/waitlist"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px 16px",
-              borderRadius: 8,
-              backgroundColor: "#ea580c",
-              color: "#fff",
-              textDecoration: "none",
-              fontSize: 14,
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-            }}
-          >
-            Join waitlist
-          </Link>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: 20,
-            borderRadius: 12,
-            border: "1px solid #164e63",
-            background:
-              "linear-gradient(135deg, rgba(8, 47, 73, 0.92), rgba(14, 116, 144, 0.35))",
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <p style={{ margin: "0 0 6px", color: "#ecfeff", fontWeight: 600 }}>
-              Want a different test path?
-            </p>
-            <p style={{ margin: 0, color: "#a5f3fc", fontSize: 14 }}>
-              Open the rollout map and follow the nested scenario branch instead of the
-              waitlist flow.
-            </p>
-          </div>
-          <Link
-            href="/scenario-matrix"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px 16px",
-              borderRadius: 8,
-              backgroundColor: "#06b6d4",
-              color: "#083344",
-              textDecoration: "none",
-              fontSize: 14,
-              fontWeight: 700,
-              whiteSpace: "nowrap",
-            }}
-          >
-            Review rollout map
-          </Link>
-        </div>
-      </div>
-
+   
       <div
         style={{
           display: "flex",
