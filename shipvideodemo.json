@@ -3,6 +3,9 @@
     "/",
     "/account/billing/trial-activated",
     "/billing",
+    "/creator-journey",
+    "/creator-journey/kickoff",
+    "/creator-journey/kickoff/client-signoff",
     "/dashboard",
     "/faq",
     "/features",
@@ -62,6 +65,16 @@
         "Click \"Proceed\""
       ],
       "success": "URL remains \"/settings\" and a success modal shows \"Recharge Successful\"."
+    },
+    {
+      "name": "Complete creator journey sign-off flow",
+      "start": "/",
+      "steps": [
+        "Click \"Open creator journey\"",
+        "Click \"Start storyboard review\"",
+        "Click \"Send to client sign-off →\""
+      ],
+      "success": "URL is \"/creator-journey/kickoff/client-signoff\" and the page shows \"Client sign-off complete\"."
     },
     {
       "name": "Complete test lab deep flow",
